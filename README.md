@@ -103,6 +103,31 @@ dbt test
 dbt test --select staging
 dbt test --select marts
 ```
+## 📁 Project Structure
+
+```
+Trustpilot-Analytics-Pipeline/
+├── 📊 data/                     # Sample datasets from web scraping
+│   ├── company_profiles.csv     # 25 appliance companies with ratings and metrics
+│   └── reviews.csv              # 4,500+ customer reviews with sentiment analysis
+├── 🔧 dbt_project/              # Complete dbt transformation pipeline
+│   └── trustpilot/              # Analytics models and business logic
+│       ├── models/staging/      # Data cleaning and standardization
+│       ├── models/marts/        # Business-ready analytical datasets
+│       └── seeds/               # Reference data (country codes, etc.)
+├── 📋 docs/                     # Generated dbt documentation files
+│   └── [Auto-generated HTML/JSON files for interactive documentation]
+├── 🕷️ scraping/                 # Web scraping module
+│   └── trustpilot_scraper.py    # Production scraper with topic detection
+├── requirements.txt             # Python dependencies
+└── README.md                    # This comprehensive project guide
+```
+
+### Key Components
+- **`data/`** - Contains sample CSV datasets demonstrating the pipeline output
+- **`dbt_project/`** - The heart of the analytics pipeline with staging and mart models
+- **`docs/`** - Interactive dbt documentation (hosted separately on Netlify)
+- **`scraping/`** - Production-ready web scraper for Trustpilot data extraction
 
 ## 📚 Documentation
 
