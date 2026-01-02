@@ -1,0 +1,12 @@
+# Web Scraping Dependencies
+beautifulsoup4==4.12.2
+requests==2.31.0
+pandas==2.1.4
+lxml==4.9.3
+
+# dbt Dependencies  
+dbt-snowflake==1.7.0
+dbt-core==1.7.0
+
+# Utility Dependencies
+python-dotenv==1.0.0
