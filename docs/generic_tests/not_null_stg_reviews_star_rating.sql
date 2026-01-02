@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="star_rating", model=get_where_subquery(ref('stg_reviews'))) }}

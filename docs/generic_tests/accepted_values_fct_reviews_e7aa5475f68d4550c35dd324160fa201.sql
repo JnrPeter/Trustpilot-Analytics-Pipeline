@@ -1,0 +1,1 @@
+{{ test_accepted_values(column_name="review_length_tier", model=get_where_subquery(ref('fct_reviews')), values=["Short","Medium","Long"]) }}

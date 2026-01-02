@@ -1,0 +1,22 @@
+
+    
+    
+
+with all_values as (
+
+    select
+        star_rating as value_field,
+        count(*) as n_records
+
+    from TRUSTPILOT_REVIEWS.DEV.stg_reviews
+    group by star_rating
+
+)
+
+select *
+from all_values
+where value_field not in (
+    '1','2','3','4','5'
+)
+
+

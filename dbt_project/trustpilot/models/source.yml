@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: trustpilot
+    database: TRUSTPILOT_REVIEWS
+    schema: RAW
+    tables:
+      - name: profile
+        identifier: COMPANY_PROFILES
+        description: Raw company profile data from Trustpilot
+      - name: reviews
+        identifier: REVIEWS
+        description: Raw review data from Trustpilot

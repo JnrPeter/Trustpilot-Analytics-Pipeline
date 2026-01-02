@@ -1,0 +1,1 @@
+{{ test_accepted_values(column_name="trust_category", model=get_where_subquery(ref('stg_profile')), values=["Excellent","Great","Poor","Bad"]) }}

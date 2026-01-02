@@ -1,0 +1,28 @@
+version: 2
+
+exposures:
+  - name: trustpilot_sentiment_dashboard
+    label: Trustpilot Sentiment Analysis Dashboard
+    type: dashboard
+    maturity: medium
+    url: https://1drv.ms/b/c/7c19873476ff2ec3/IQDFaUb6vdnKQbFtL3Jh2ZaUAUyMvI-oG49QjotVQVErsBA?e=TFmLhp
+    description: |
+      Comprehensive dashboard analyzing sentiment and review patterns across 25 appliance companies from Trustpilot.
+      
+      Key insights include:
+      - Review complexity vs satisfaction correlation analysis
+      - Topic distribution across 8 categories (delivery, price, service, etc.)
+      - Sentiment breakdown (76% positive, 18.5% negative, 3.48% neutral)
+      - Geographic distribution of reviewers across 61 countries
+      - Company response rate analysis by sentiment
+      
+      Business value: Helps identify customer pain points, response strategy optimization, 
+      and geographic expansion opportunities.
+    
+    depends_on:
+      - ref('dim_company_profile')
+      - ref('fct_reviews')
+    
+    owner:
+      name: Peter Enning Junior
+      email: p.enning2120@gmail.com

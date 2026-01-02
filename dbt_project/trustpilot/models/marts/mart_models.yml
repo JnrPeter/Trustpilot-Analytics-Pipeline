@@ -1,0 +1,195 @@
+version: 2
+
+models:
+  - name: dim_companies
+    description: >
+      Dimension table for Trustpilot companies with business-friendly tiers and flags.
+      Adds rating_tier, response_tier, company_size, and is_responsive for easier BI analysis.
+    
+    columns:
+      - name: company_id
+        description: Primary key (surrogate key from company_name)
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: company_name
+        description: Company name
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: business_type
+        description: Business category
+      
+      - name: trustpilot_url
+        description: URL to company's Trustpilot profile
+      
+      - name: website_url
+        description: Company website URL
+      
+      - name: phone
+        description: Contact phone number
+      
+      - name: overall_rating
+        description: Average star rating (1.0-5.0)
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+                max_value: 5
+      
+      - name: trust_category
+        description: Trust level badge from Trustpilot
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Excellent', 'Great', 'Poor', 'Bad']
+      
+      - name: rating_tier
+        description: >
+          Rating grouped into tiers based on overall_rating:
+          Excellent (4.5+), Good (4.0-4.4), Average (3.0-3.9), Poor (<3.0)
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Excellent', 'Good', 'Average', 'Poor']
+      
+      - name: total_reviews
+        description: Total number of reviews
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1000
+      
+      - name: num_locations
+        description: Number of store locations
+      
+      - name: location_tier
+        description: >
+          Company size based on number of locations:
+          Single (1), Regional (2-10), National (10+)
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Single', 'Regional', 'National']
+      
+      - name: negative_response_pct
+        description: Percentage of negative reviews company replied to
+      
+      - name: response_time_hours
+        description: Typical response time in hours
+      
+      - name: response_time_tier
+        description: >
+          Response time grouped into tiers based on response_time_hours:
+          Fast (<24h), Moderate (1-3 days), Slow (3+ days), Unknown (null)
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Fast', 'Moderate', 'Slow', 'Unknown']
+      
+      - name: is_responsive
+        description: Whether company replies to 50%+ of negative reviews
+      
+      - name: claimed_profile
+        description: Whether company has claimed their Trustpilot profile
+      
+      - name: verified_company
+        description: Whether company is verified on Trustpilot
+      
+      - name: has_active_subscription
+        description: Whether company has paid Trustpilot subscription
+      
+      - name: scraped_at
+        description: Timestamp when data was scraped
+
+  - name: fct_reviews
+    description: >
+      Fact table for Trustpilot reviews with sentiment flags, recency metrics, and length tiers.
+      Includes is_positive, is_negative, review_age_days, and recency_tier for analysis.
+    
+    columns:
+      - name: review_id
+        description: Primary key (surrogate key)
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: company_id
+        description: Foreign key to dim_companies
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_companies')
+                field: company_id
+      
+      - name: company_name
+        description: Company name (denormalized)
+        data_tests:
+          - not_null
+      
+      - name: reviewer_name
+        description: Name of the reviewer
+      
+      - name: reviewer_country
+        description: Reviewer's country (full name, derived from ISO code)
+      
+      - name: review_rating
+        description: Numeric star rating (1-5)
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      
+      - name: review_sentiment
+        description: >
+          Sentiment derived from review_rating:
+          Positive (4-5), Neutral (3), Negative (1-2)
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Positive', 'Neutral', 'Negative']
+      
+      - name: review_title
+        description: Review headline
+      
+      - name: review_text
+        description: Full review content
+      
+      - name: review_length
+        description: Character count of review text
+      
+      - name: review_length_tier
+        description: >
+          Review length grouped into tiers based on review_length:
+          Short (<100 chars), Medium (100-300 chars), Long (300+ chars)
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Short', 'Medium', 'Long']
+      
+      - name: reviewed_at
+        description: Timestamp when review was submitted
+        data_tests:
+          - not_null
+      
+      - name: review_age_days
+        description: Days since review was submitted
+      
+      - name: is_verified
+        description: Whether review is from a verified purchase
+      
+      - name: has_company_reply
+        description: Whether company responded to the review
+      
+      - name: topic_tags
+        description: Detected topics in the review (comma-separated)
+      
+      - name: topic_count
+        description: Number of topics detected in the review (0 if general or null)
+      
+      - name: scraped_at
+        description: Timestamp when data was scraped

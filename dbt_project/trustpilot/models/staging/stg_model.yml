@@ -1,0 +1,136 @@
+version: 2
+
+models:
+  - name: stg_profile
+    description: >
+      Cleaned and standardized company profile data from Trustpilot.
+      Dropped columns (too many nulls): email, address, founded_year, company_description
+    
+    columns:
+      - name: company_id
+        description: Surrogate key generated from company_name
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: company_name
+        description: Company name
+        data_tests:
+          - not_null
+      
+      - name: trustpilot_url
+        description: URL to company's Trustpilot profile
+      
+      - name: overall_rating
+        description: Average star rating (1.0-5.0)
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 1
+                max_value: 5
+      
+      - name: trust_category
+        description: Trust level badge
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Excellent', 'Great', 'Poor', 'Bad']
+      
+      - name: total_reviews
+        description: Total number of reviews
+      
+      - name: num_locations
+        description: Number of store locations
+      
+      - name: business_type
+        description: Business category
+      
+      - name: claimed_profile
+        description: Whether company has claimed their profile
+      
+      - name: verified_company
+        description: Whether company is verified
+      
+      - name: has_active_subscription
+        description: Whether company has paid Trustpilot subscription
+      
+      - name: negative_response_pct
+        description: Percentage of negative reviews company replied to 
+      
+      - name: response_time_hours
+        description: Typical response time in hours 
+      
+      - name: phone
+        description: Contact phone number
+      
+      - name: website_url
+        description: Company website URL
+      
+      - name: scraped_at
+        description: Timestamp when data was scraped
+
+  - name: stg_reviews
+    description: Cleaned and standardized review data from Trustpilot
+    
+    columns:
+      - name: review_id
+        description: Surrogate key generated from company_name, reviewer_name, review_date, review_title
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: company_id
+        description: Foreign key to stg_profile
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_profile')
+                field: company_id
+      
+      - name: company_name
+        description: Company name
+        data_tests:
+          - not_null
+      
+      - name: reviewer_name
+        description: Name of the reviewer
+      
+      - name: reviewer_location
+        description: Reviewer's location
+      
+      - name: star_rating
+        description: Numeric star rating (1-5) extracted from text
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      
+      - name: review_title
+        description: Review headline
+      
+      - name: review_text
+        description: Full review content
+      
+      - name: review_length
+        description: Character count of review text
+      
+      - name: reviewed_at
+        description: Timestamp when review was submitted
+        data_tests:
+          - not_null
+      
+      - name: is_verified
+        description: Whether review is from a verified purchase
+      
+      - name: has_company_reply
+        description: Whether company responded to the review
+      
+      - name: topic_tags
+        description: >
+          Detected topics in the review (comma-separated).
+          Possible values: delivery, price, service, product, staff, order, location, refund, general
+      
+      - name: scraped_at
+        description: Timestamp when data was scraped

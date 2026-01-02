@@ -1,0 +1,16 @@
+trustpilot:
+  outputs:
+    dev:
+      type: snowflake
+      account: nkbbwms-dn67058
+      user: dbt
+
+      role: TRANSFORM
+      private_key: "-----BEGIN ENCRYPTED PRIVATE KEY-----\nMIIFNTBfBgkqhkiG9w0BBQ0wUjAxBgkqhkiG9w0BBQwwJAQQJvMnNo/m/Ux9csEk\ng6aJHAICCAAwDAYIKoZIhvcNAgkFADAdBglghkgBZQMEASoEENKXzfWLe32fN6Jw\nWzSJq4gEggTQ9HAbwPUGk0MxVbQos9V62L2pVjie/EwU3gyI4VpyN8POkQ1AERZO\nHNhEYhqq0Np1qOxdNQE9S3EWCmzXTwlH61BHt/f1jchO1r/M7XA3DRv5KqYMOnvH\n6bs3Hbc4EDeQt5gCnDO0kSzwmnylJQhh4iI9Erss+gnQWsFd8nkx7lm0JsTKxdZA\nNzKKVud/PEcQQOcNUOuPo6MXbF2o6+kT2qAZN2HZmUsBslOBW2O5tKUPh4hX6KRF\n7W/NrcW6cF1efzwyKNcz8i5mrSSHGxfFUlbigySZFSBMJUeQ3Vl8tQtVFsboOKkP\nDKkVE04erMl3Yuw4QJCRsJ/qrYUW4Rd/h+cNOBvnHFGA9n7jNyD7RNdbhKlLD4nR\nOB1GUdQKZnfkgJgUCMsKoSXIKmqhwELY/rateMwrdbzRGqEJpwl/hJ+EkdnCoMKc\nDqbnzN9X99mawjWa1SYfg9IqYfRH/qX39AaU9WjCdZ5n7u0IPAEL3blrT1ObvpLL\nD0x/SJEOMxc74Tt31wdq6EPUr/XoNnSCcKHPjeXx2s3yXR8WmVZ4Rpbi63PSkISe\nrDAJ6SGrwlr3uVOAv8DfHo+0Tko9ogxETbvmWQRDAtp1b/rKFUeP//dQvGURJK4V\nfUkavAw8sm7FFw/Dp9/0wrHwGrlDhOqvi8y+cVYteYFh5AffmPB9ksNjTnyrGxnJ\ncXuNBMgy/sF5pM/4wKcADSTP+pdLb0qZmmLe0yBqlwqbSp71pdNQgw+s9dkBFL2l\nrax+G1mD5RWMfK6D4p/RAsmliTigUdheU2lJF6O3FjIiuCLz+jW9x4fgwyu1KlJK\nwtTgbc3Rl0QvLAvz5oTlonRbTn7gg4E7EPhCOMwLU9+usjYaztORN86cWtrIBjtG\nA8kdNwW6uD7008p1uzzayTpivl3j4zHuk/ycNyBwNnuz16+QI32VKaQf4WRjZlxQ\nGXsAF67tS09aOybHbQDaTMsYFDirLV1P5qKMsmSi8T5HA54DyiQTAfEvez0kjq7J\ne7xln+wljrNMyWSH9HY6GmNaRs7RRSYmp8s3ZewlGn8WWrRAGJc7M7dz4+Qj4fzk\nAU3OKgDA4zdUIWBuEwREAGR4rffaLMrLxKgJtBKce/hzn1MSFo4qpnk3w0PsH0Te\nDoVf2adIWH37fC0cJKicbt8oDj3jHYFGrCuw6PrT9BC+BV3OeK1h3RBBNIHx9Hry\n5MtC9jBWF0MK/kgdXmfZtFPkGSRoi2m22TY0LyQ3wKDHKprGDd7Y1L7lv5Npo/kr\n9BUg5R434JRWv0YdcwFXRC12gPdS5fgp1O6xDaeorGTjGyJuFhNHc/bc8d02/rYP\nbTLACmlXF1T1U32HOG076y+jRTXcle+gdRy6u3JK2VR8B64KFFQUH8CFXTeL6XBC\nXi+GgYbIFY+R2wd/DjsWVvSdi18Ev+DQDR+xp7/sWMvhoQQFLNGg7xedWPzLmLWv\nZ78lsnkIXUXTARlEmsLQREdUD90E2oHNd/c6EUxvCbTA9TRFEddV9wE1CBsoMqUK\nfF6KgIRkEwmkjnMz1bE6mGmrwwmegbHXFZ7enuQ5TNLroctKNrQJE1qNSAGPF0VJ\nv6dPgZ3ctVeti/uiacPWv0saHcIfJQutzIH2ZDW5DaO8o2iQw6PYz+s=\n-----END ENCRYPTED PRIVATE KEY-----\n"
+      private_key_passphrase: q
+
+      database: TRUSTPILOT_REVIEWS
+      schema: DEV
+      threads: 1
+      warehouse: COMPUTE_WH
+  target: dev
